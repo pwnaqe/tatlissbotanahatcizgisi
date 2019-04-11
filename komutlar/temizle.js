@@ -1,21 +1,32 @@
 const Discord = require('discord.js');
 exports.run = function(client, message, args) {
-if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("Bu Komutu Kullanmak İçin İzniniz Yok!");
-if(!args[0]) return message.channel.send("<:hayirr:495950887898841089> Lütfen Silinicek Mesaj Miktarını Yazın.!");
-message.channel.bulkDelete(args[0]).then(() => {
-  message.channel.send(`<:evett:495950668725747733> ${args[0]} Adet Mesajı Sildim.`)
-})
-}
+
+  if (!message.guild) {
+    return message.author.send('`temizle` komutu sadece sunucularda kullanılabilir.');
+  }
+  let mesajsayisi = parseInt(args.join(' '));
+  if (mesajsayisi.length < 1) return message.channel.send('Kaç mesaj silmem gerektiğini belirtmedin.')
+  if (mesajsayisi > 100) return message.channel.send('100 adetden fazla mesaj silemem!');
+  message.channel.bulkDelete(mesajsayisi);
+    const sohbetsilindi = new Discord.RichEmbed()
+    .setColor(0x00AE86)
+    .setTimestamp()
+    .addField('Eylem:', 'Sohbet silme')
+    .addField('Yetkili:', message.author.username)
+    .addField('Silinen mesaj sayısı:', mesajsayisi)
+    return message.channel.sendEmbed(sohbetsilindi);
+    console.log("Sohbet " + message.member + " tarafından silindi!"); 
+};
 
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: ['temizle'],
+  aliases: ['sil'],
   permLevel: 2
 };
 
 exports.help = {
   name: 'temizle',
-  description: 'Belirlenen miktarda mesajı siler.',
-  usage: 'temizle <silinicek mesaj sayısı>'
+  description: 'Belirlenen miktar mesajı siler.',
+  usage: 'temizle <temizlenecek mesaj sayısı>'
 };

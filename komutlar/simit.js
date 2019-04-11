@@ -1,20 +1,21 @@
 const Discord = require('discord.js');
-const loglar = require('../loglar.json');
+const ayarlar = require('../ayarlar.json');
 
 exports.run = (client, message, params) => {
-	if (!message.guild) {
+    if (!message.guild) {
     const ozelmesajuyari = new Discord.RichEmbed()
     .setColor(0xFF0000)
     .setTimestamp()
     .setAuthor(message.author.username, message.author.avatarURL)
-    .addField('Korkut')
+    .addField('**Eğlence Komutları Özel Mesajlarda Kullanılamaz!**')
     return message.author.sendEmbed(ozelmesajuyari); }
-    if (message.channel.type !== '..') {
+    if (message.channel.type !== 'dm') {
       const sunucubilgi = new Discord.RichEmbed()
-    .setAuthor('Bööö Korktun mu?')
-    .setColor('RANDOM')
+    .setAuthor(message.author.username +  ' Simit Yedin!')
+    .setColor(3447003)
     .setTimestamp()
-		.setImage(`https://78.media.tumblr.com/452063fcc1533a028f27cba85291d644/tumblr_ms8w5wWoOT1spwp48o1_500.gif`)
+    .setDescription('')
+        .setImage(`https://www.bobiler.org/monte/preview/116199/bobiler.gif`)
     return message.channel.sendEmbed(sunucubilgi);
     }
 };
@@ -27,7 +28,7 @@ exports.conf = {
 };
 
 exports.help = {
-  name: 'korkut',
-  description: 'Bot Sizi Korkutmaya Çalışır.',
-  usage: 'korkut'
+  name: 'simit',
+  description: 'Simit Yer.',
+  usage: 'simit'
 };
